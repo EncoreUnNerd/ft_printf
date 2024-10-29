@@ -6,7 +6,7 @@
 /*   By: mhenin <mhenin@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 15:57:59 by mhenin            #+#    #+#             */
-/*   Updated: 2024/10/29 18:52:49 by mhenin           ###   ########.fr       */
+/*   Updated: 2024/10/29 19:20:19 by mhenin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	ft_printf(const char *format, ...)
 	int		res;
 	va_list	args;
 
+	if (!format)
+		return (-1);
 	res = 0;
 	va_start(args, format);
 	while (*format)
