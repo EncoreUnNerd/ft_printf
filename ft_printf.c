@@ -6,7 +6,7 @@
 /*   By: mhenin <mhenin@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 15:57:59 by mhenin            #+#    #+#             */
-/*   Updated: 2024/10/29 17:59:31 by mhenin           ###   ########.fr       */
+/*   Updated: 2024/10/29 18:52:49 by mhenin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ static int	cases(char l, va_list args)
 		res += ft_putchar(va_arg(args, int));
 	else if (l == 'u')
 		res += ft_putnbr_unsigned(va_arg(args, unsigned int));
-	else if (l == 'x' || l == 'X' || l == 'p')
+	else if (l == 'x' || l == 'X')
+		res += ft_putnbr_base(va_arg(args, unsigned int), l);
+	else if (l == 'p')
 		res += ft_putnbr_base(va_arg(args, unsigned long), l);
 	else
 	{
