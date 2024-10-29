@@ -1,25 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_put.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhenin <mhenin@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 10:17:37 by mhenin            #+#    #+#             */
-/*   Updated: 2024/10/17 10:17:38 by mhenin           ###   ########.fr       */
+/*   Updated: 2024/10/29 17:22:42 by mhenin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_putstr(char *s)
 {
 	int	i;
 
 	i = 0;
 	if (!s)
-		return ;
+		return (0);
 	while (s[i])
 		i++;
-	write(fd, s, i * sizeof(char));
+	write(1, s, i * sizeof(char));
+	return (i);
+}
+
+int	ft_putchar(char c)
+{
+	write(1, &c, sizeof(char));
+	return (1);
+}
+
+int	ft_putnbr(int n)
+{
+	int	res;
+
+	res = 0;
+	if (n < -9 || n > 9)
+		res += ft_putnbr(n / 10);
+	if (n < 0)
+	{
+		if (n >= -9)
+			res += ft_putchar('-');
+		res += ft_putchar('0' - (n % 10));
+	}
+	else
+		res += ft_putchar('0' + (n % 10));
+	return (res);
+}
+
+int	ft_putnbr_unsigned(unsigned int n)
+{
+	int	res;
+
+	res = 0;
+	if (n > 9)
+		res += ft_putnbr_unsigned(n / 10);
+	res += ft_putchar('0' + (n % 10));
+	return (res);
 }

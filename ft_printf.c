@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhenin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mhenin <mhenin@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 15:57:59 by mhenin            #+#    #+#             */
-/*   Updated: 2024/10/28 15:58:01 by mhenin           ###   ########.fr       */
+/*   Updated: 2024/10/29 17:42:55 by mhenin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
-
-static int	ft_putnbr_unsigned(unsigned int n)
-{
-	int	res;
-
-	res = 0;
-	if (n > 9)
-		res += ft_putnbr_unsigned(n / 10);
-	ft_putchar_fd('0' + (n % 10), 1);
-	res++;
-	return(res);
-}
+#include "ft_printf.h"
 
 static int	cases(char l, va_list args)
 {
@@ -30,15 +18,22 @@ static int	cases(char l, va_list args)
 
 	res = 0;
 	if (l == 's')
-		ft_putstr_fd(va_arg(args, char *), 1);
-	if (l == 'd' || l == 'i')
-		ft_putnbr_fd(va_arg(args, int), 1);
-	if (l == '%')
-		ft_putchar_fd('%', 1);
-	if (l == 'c')
-		ft_putchar_fd(va_arg(args, int), 1);
-	if (l == 'u')
+		res += ft_putstr(va_arg(args, char *));
+	else if (l == 'd' || l == 'i')
+		res += ft_putnbr(va_arg(args, int));
+	else if (l == '%')
+		res += ft_putchar('%');
+	else if (l == 'c')
+		res += ft_putchar(va_arg(args, int));
+	else if (l == 'u')
 		res += ft_putnbr_unsigned(va_arg(args, unsigned int));
+	else if (l == 'x' || l == 'X' || l == 'p')
+		res += ft_putnbr_base(va_arg(args, unsigned int), l);
+	else
+	{
+		res += ft_putchar('%');
+		res += ft_putchar(l);
+	}
 	return (res);
 }
 
@@ -52,10 +47,7 @@ int	ft_printf(const char *format, ...)
 	while (*format)
 	{
 		if (*format != '%')
-		{
-			ft_putchar_fd(*format, 1);
-			res++;
-		}
+			res += ft_putchar(*format);
 		else
 		{
 			format++;
@@ -71,9 +63,12 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	void	*p;
+	char	*caca = "test";
 
-	printf("\n%d\n", printf("test %s ", "test de fou"));
-	printf("\n%d\n", ft_printf("test %s ", "elle follo"));
+	// printf("\nnbrr : %d", printf("%X", 455555));
+	// printf("\n");
+	// printf("\nnbrf : %d", ft_printf("%X", 455555));
+	ft_printf("%r", caca);
+	printf("\n%r", caca);
 	return (0);
 }
