@@ -6,7 +6,7 @@
 /*   By: mhenin <mhenin@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 10:17:37 by mhenin            #+#    #+#             */
-/*   Updated: 2024/10/29 17:22:42 by mhenin           ###   ########.fr       */
+/*   Updated: 2024/10/29 18:27:13 by mhenin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@ int	ft_putstr(char *s)
 
 	i = 0;
 	if (!s)
-		return (0);
-	while (s[i])
-		i++;
-	write(1, s, i * sizeof(char));
+		i += ft_putstr("(null)");
+	else
+	{
+		while (s[i])
+			i++;
+		write(1, s, i * sizeof(char));
+		return (i);
+	}
 	return (i);
 }
 

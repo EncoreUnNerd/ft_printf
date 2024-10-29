@@ -6,7 +6,7 @@
 /*   By: mhenin <mhenin@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 15:57:59 by mhenin            #+#    #+#             */
-/*   Updated: 2024/10/29 17:42:55 by mhenin           ###   ########.fr       */
+/*   Updated: 2024/10/29 17:59:31 by mhenin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	cases(char l, va_list args)
 	else if (l == 'u')
 		res += ft_putnbr_unsigned(va_arg(args, unsigned int));
 	else if (l == 'x' || l == 'X' || l == 'p')
-		res += ft_putnbr_base(va_arg(args, unsigned int), l);
+		res += ft_putnbr_base(va_arg(args, unsigned long), l);
 	else
 	{
 		res += ft_putchar('%');
@@ -59,16 +59,4 @@ int	ft_printf(const char *format, ...)
 		format++;
 	}
 	return (res);
-}
-
-int	main(void)
-{
-	char	*caca = "test";
-
-	// printf("\nnbrr : %d", printf("%X", 455555));
-	// printf("\n");
-	// printf("\nnbrf : %d", ft_printf("%X", 455555));
-	ft_printf("%r", caca);
-	printf("\n%r", caca);
-	return (0);
 }
